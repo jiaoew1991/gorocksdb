@@ -606,6 +606,9 @@ func (db *DB) GetApproximateSizes(ranges []Range) []uint64 {
 		}
 	}()
 
+    var cErr *C.char
+    // Explicitly ignoring error.
+    // TODO: Handle the error properly.
 	C.rocksdb_approximate_sizes(
 		db.c,
 		C.int(len(ranges)),
@@ -613,7 +616,8 @@ func (db *DB) GetApproximateSizes(ranges []Range) []uint64 {
 		&cStartLens[0],
 		&cLimits[0],
 		&cLimitLens[0],
-		(*C.uint64_t)(&sizes[0]))
+		(*C.uint64_t)(&sizes[0]),
+		&cErr)
 
 	return sizes
 }
@@ -647,6 +651,9 @@ func (db *DB) GetApproximateSizesCF(cf *ColumnFamilyHandle, ranges []Range) []ui
 		}
 	}()
 
+    var cErr *C.char
+    // Explicitly ignoring error.
+    // TODO: Handle the error properly.
 	C.rocksdb_approximate_sizes_cf(
 		db.c,
 		cf.c,
@@ -655,7 +662,8 @@ func (db *DB) GetApproximateSizesCF(cf *ColumnFamilyHandle, ranges []Range) []ui
 		&cStartLens[0],
 		&cLimits[0],
 		&cLimitLens[0],
-		(*C.uint64_t)(&sizes[0]))
+		(*C.uint64_t)(&sizes[0]),
+		&cErr)
 
 	return sizes
 }
