@@ -1,7 +1,11 @@
 package gorocksdb
 
-// #include "rocksdb/c.h"
-// #include "gorocksdb.h"
+/*
+#cgo pkg-config: rocksdb
+
+#include "rocksdb/c.h"
+#include "gorocksdb.h"
+*/
 import "C"
 import (
 	"errors"
