@@ -1,7 +1,8 @@
 package gorocksdb
 
 /*
-#cgo pkg-config: rocksdb
+#cgo !windows pkg-config: rocksdb
+#cgo windows LDFLAGS: -lrocksdb
 
 #include <stdlib.h>
 #include "rocksdb/c.h"
